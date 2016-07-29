@@ -1,0 +1,20 @@
+.zframe-flickr-wrap-ltr,
+.zframe-flickr-wrap-rtl {
+	display: block;
+	overflow: hidden;
+}
+.zframe-flickr-wrap-ltr a,
+.zframe-flickr-wrap-rtl a {
+	display: block;
+    margin-bottom: 10px;
+	position: relative;
+}
+.zframe-flickr-wrap-ltr a {
+	float: left;
+	margin-right: 10px;
+}
+
+.zframe-flickr-wrap-rtl a {
+	float: right;
+	margin-left: 10px;
+}

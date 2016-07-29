@@ -1,0 +1,180 @@
+/* ==========================================================================
+    Style Button
+========================================================================== */
+.btn, button, .button, input[type="submit"] {
+  line-height: 1;
+  display: inline-block;
+  outline: medium none;
+  text-decoration: none;
+  color: #333;
+  @include transition(all 300ms linear 0ms);
+  font-weight: 400;
+  letter-spacing: 0.2em;
+}
+
+.btn {
+	&.btn-primary, &.btn-primary.vc_general.vc_btn3 {
+		border: 1px solid $primary_color;
+	}
+  &.btn-lg {
+	padding: 15px 100px !important;
+	font-size: 20px !important;
+  }
+  &.btn-border-2 {
+	border: 2px solid #FFF !important;
+  }
+  &.btn-transparent {
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	color: #FFF;
+	background-color: transparent;
+	&:hover {
+	  color: $primary_color;
+	}
+  }
+  &.btn-gray {
+	border-color: #dbdbdb;
+	color: #3c3c3c;
+	background-color: #dbdbdb;
+	&.btn-transparent {
+	  background-color: transparent;
+	}
+	&:hover {
+	  border-color: #dbdbdb;
+	  color: $primary_color;
+	}
+  }
+  &.btn-dark {
+	border-color: #232323;
+	color: #fff;
+	background-color: #232323;
+	&.btn-transparent {
+	  background-color: transparent;
+	}
+	&:hover {
+	  color: #3c3c3c;
+	  border-color: #232323;
+	}
+  }
+  &.btn-pink {
+	border-color: $primary_color;
+	color: #fff;
+	background-color: $primary_color;
+	&.btn-transparent {
+	  background-color: transparent;
+	}
+	&:hover {
+	  color: #3c3c3c;
+	  border-color: $primary_color;
+	}
+  }
+	&.btn-default {
+		background-color: #f4f4f4;
+		color: #acacac;
+	}
+	&.btn-danger {
+		background-color: #e08a8a;
+		border-color: #e08a8a;
+		color: #fff;
+	}
+	&.btn-info {
+		background-color: #73c1e7;
+		border-color: #62b9e4;
+		color: #fff;
+	}
+	&.btn-success {
+		background-color: #8dde6e;
+		border-color: #80da5d;
+		color: #fff;
+	}
+	&.btn-warning {
+		background-color: #f6de88;
+		border-color: #f5d975;
+		color: #fff;
+	}
+}
+
+.btn:hover, button:hover, .button:hover, input[type="submit"]:hover, .btn:focus, button:focus, .button:focus, input[type="submit"]:focus {
+  outline: medium none;
+  text-decoration: none;
+}
+
+/* Custom VC Button */
+/* Button default */
+.zo_button.vc_btn3-container {
+  margin-bottom: 0;
+}
+.zo_button .vc_btn3 {
+  &.btn {
+	&.btn-transparent {
+	  border: 1px solid rgba(255, 255, 255, 0.3);
+	  color: #FFF;
+	  background-color: transparent;
+	  &:hover {
+		color: $primary_color;
+	  }
+	}
+	&.btn-gray {
+	  border-color: #dbdbdb;
+	  color: #3c3c3c;
+	  background-color: #dbdbdb;
+	  &.btn-transparent {
+		background-color: transparent;
+	  }
+	  &:hover {
+		border-color: #dbdbdb;
+		color: $primary_color;
+	  }
+	}
+	&.btn-dark {
+	  border-color: #232323;
+	  color: #fff;
+	  background-color: #232323;
+	  &.btn-transparent {
+		background-color: transparent;
+	  }
+	  &:hover {
+		color: #3c3c3c;
+		border-color: #232323;
+	  }
+	}
+	&.btn-pink {
+	  border-color: $primary_color;
+	  color: #fff;
+	  background-color: $primary_color;
+	  &.btn-transparent {
+		background-color: transparent;
+	  }
+	  &:hover {
+		color: #3c3c3c;
+		border-color: $primary_color;
+	  }
+	}
+  }
+  &.vc_btn3-icon-left {
+	.vc_btn3-icon {
+	  float: left;
+	  position: relative;
+	  padding-right: 10px;
+	  font-size: 30px;
+	}
+  }
+  &.vc_btn3-icon-right {
+	.vc_btn3-icon {
+	  float: right;
+	  position: relative;
+	  padding-left: 10px;
+	  font-size: 30px;
+	}
+  }
+}
+
+@include breakpoint-max(768px) {
+  .btn-parallax-scrolling .btn {
+	padding-left: 15px !important;
+	padding-right: 15px !important;
+  }
+}
+
+/* ==========================================================================
+    End Style Button
+========================================================================== */

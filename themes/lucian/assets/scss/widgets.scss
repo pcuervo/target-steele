@@ -1,0 +1,694 @@
+/*------------------------------------------------------------------
+[All Style Sidebar Widget]
+
+    1. Widget Search
+	2. Widget Category
+	3. Widget Tags
+	4. Widget Author
+
+-------------------------------------------------------------------*/
+/* ==========================================================================
+   [Start] 1. Widget Search
+========================================================================== */
+.searchform,
+.woocommerce-product-search {
+  position: relative;
+  margin-bottom: 15px;
+  &:before {
+	font-size: 18px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	content: "\f002";
+	font-family: FontAwesome;
+  }
+  .screen-reader-text {
+	display: none;
+  }
+  input[type="text"],
+  input[name="s"], {
+	width: 100%;
+	margin: 0;
+	height: 50px;
+	line-height: 50px;
+	display: block;
+	@include border-radius(0);
+	box-sizing: border-box;
+	padding: 0 15px;
+  }
+  input[type="submit"] {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 35px;
+	height: 50px;
+	line-height: 50px;
+	background: none;
+	border: none !important;
+	text-indent: -99999px;
+	opacity: 0;
+	padding: 0;
+	&:hover {
+	  background-color: rgba(0, 0, 0, 0.2) !important;
+	  opacity: 0.4;
+	}
+  }
+}
+
+/* ==========================================================================
+   [Start] 2. Widget Search
+========================================================================== */
+
+/* ==========================================================================
+   [Start] 3. Widget Tags
+========================================================================== */
+.tagcloud a {
+  font-size: 13px !important;
+  line-height: 30px;
+  height: 34px;
+  padding: 0 15px;
+  color: #6f6f6f;
+  margin: 0 10px 10px 0;
+  display: inline-block;
+  @include border-radius(0);
+  background-color: transparent;
+  border: 1px solid #ececec;
+  &:hover {
+	border-color: $primary_color;
+	background-color: transparent;
+  }
+}
+
+/* ==========================================================================
+   [End] 3. Widget Tags
+========================================================================== */
+
+/* ==========================================================================
+   [Start] 4. Instagram
+========================================================================== */
+.zo-instagram-pics {
+  margin-left: -7px;
+  margin-right: -7px;
+  .instagram-item {
+	margin: 0;
+	padding: 0 7px 15px 7px;
+	a {
+	  display: block;
+	  position: relative;
+	  &:before {
+		content: '';
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: $primary_color;
+		opacity: 0;
+		@include transition(all 200ms ease-in-out);
+	  }
+	  &:after {
+		content: "\f002";
+		color: #FFF;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		@include transform(translate(-50%, -50%));
+		font-size: 20px;
+		opacity: 0;
+		@include transition(all 200ms ease-in-out);
+		font-family: FontAwesome;
+	  }
+	  &:hover {
+		&:after, &:before {
+		  opacity: 0.8;
+		}
+	  }
+	}
+  }
+}
+
+.zo-get-touch li {
+  position: relative;
+  padding-left: 30px;
+  i {
+	font-size: 20px;
+	color: #808080;
+	padding-right: 10px;
+	position: absolute;
+	top: 0;
+	left: 0;
+  }
+}
+
+/* ==========================================================================
+   [End] 4. Instagram
+========================================================================== */
+
+/* ==========================================================================
+   [Start] 5. Twitter
+========================================================================== */
+.tweets-container {
+  ul {
+	list-style: none inside;
+	margin: 0;
+	padding: 0;
+	li {
+	  font-size: 11px;
+	  line-height: 18px;
+	  margin-bottom: 25px;
+	  .jtwt_date {
+		color: #3a3a3a !important;
+		.fa {
+		  padding-right: 18px;
+		}
+	  }
+	}
+  }
+}
+
+/* ==========================================================================
+   [Start] 5. Zo Recent Post
+========================================================================== */
+
+.zo-recent-post {
+  margin-top: 40px;
+  .zo-recent-post-wrapper {
+	margin-left: 0;
+	> li {
+	  margin: 0 0 40px;
+	  clear: both;
+	  line-height: normal;
+	  &:last-child {
+		margin: 0;
+	  }
+	}
+	.zo-recent-media {
+	  width: 70px;
+	  max-width: 70px;
+	  float: left;
+	}
+	.zo-recent-details {
+	  padding-left: 100px;
+	  font-size: 14px;
+	  &.no-image {
+		padding: 0;
+	  }
+	  .title {
+		font-size: 16px;
+		margin: 0 0 10px;
+		color: #141414;
+		font-weight: normal;
+		letter-spacing: 0;
+		line-height: normal;
+		a {
+		  color: #141414;
+		}
+	  }
+	  .date {
+		display: inline-block;
+		.author {
+		  padding-left: 1px;
+		  &:before {
+			content: "|";
+			padding-right: 3px;
+		  }
+		}
+	  }
+
+	  .post-categories {
+		margin: 0;
+		li {
+		  line-height: normal;
+		  a {
+			font-size: 16px;
+			color: #6f6f6f;
+		  }
+		}
+	  }
+
+	}
+  }
+}
+
+#secondary .zo-recent-post-wrapper {
+  .zo-recent-details .date {
+	color: $primary_color;
+  }
+}
+
+/**
+* Calendar Widget
+*/
+.widget_calendar table {
+  width: 100%;
+  caption {
+	text-align: center;
+	font-weight: bold;
+  }
+  td {
+	text-align: center;
+  }
+}
+
+/**
+* Products Rate
+*/
+.widget_top_rated_products {
+  .product_list_widget {
+	li {
+	  overflow: hidden;
+	  margin-bottom: 30px !important;
+	  a {
+		img {
+		  float: left;
+		  width: 70px;
+		  height: 75px;
+		  margin-right: 30px;
+		}
+		.product-title {
+		  float: left;
+		  color: #141414;
+		  font-size: 12px;
+		  width: calc(100% - 105px);
+		  line-height: normal;
+		  text-transform: uppercase;
+		  letter-spacing: 0.1em;
+		  font-weight: normal;
+		  word-wrap: break-word;
+		}
+	  }
+	  ins {
+		text-decoration: none;
+	  }
+	}
+  }
+}
+
+/**
+* Filter
+*/
+.widget_price_filter {
+	form {
+		padding-top: 8px;
+	.price_slider_wrapper {
+	  position: relative;
+	  padding-top: 50px;
+	  .ui-slider-horizontal {
+		height: 2px;
+		.ui-slider-range {
+		  background-color: $primary_color !important;
+		}
+	  }
+	  .price_slider {
+		background-color: #3c3c3c !important;
+		@include border-radius(0 !important);
+		.ui-slider-handle {
+		  width: 16px;
+		  height: 16px;
+		  top: 0;
+		  left: 0;
+		  background-color: $primary_color;
+		  @include transform(translate(-50%, -50%));
+		}
+		.ui-slider-range {
+		  background-color: #141414;
+		}
+	  }
+	  .price_slider_amount {
+		.price_label {
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  display: block;
+		  width: 100%;
+		  text-align: left;
+		  font-size: 11px;
+		  color: #3c3c3c;
+		  text-transform: uppercase;
+		}
+		.button {
+		  margin-top: 45px;
+		  border: 1px solid #3c3c3c;
+		  background-color: #3c3c3c !important;
+		  padding: 20px 43px;
+		  color: #FFF;
+		  font-size: 12px;
+		  border-radius: 0;
+		  &:hover {
+			background-color: $primary_color;
+		  }
+		}
+	  }
+	}
+  }
+}
+
+/**
+* News Tabs
+*/
+.widget_ww_news_tabs {
+  .tab-holder .tab-hold {
+	.nav-tabs {
+	  overflow: hidden;
+	  border-left: 1px solid #ECECEC;
+	  border-right: 1px solid #ECECEC;
+	  li {
+		background-color: #f2f2f2;
+		border: none;
+		border-top: 2px solid transparent;
+		display: block;
+		float: left;
+		width: 50%;
+		text-align: center;
+		letter-spacing: 0.1em;
+		font-size: 12px;
+		a {
+		  display: block;
+		  border: none !important;
+		}
+		&.active {
+		  background-color: transparent;
+		  border-top-color: $primary_color;
+		}
+	  }
+	}
+  }
+  .tab-content {
+	margin: 0;
+	border-width: 0 1px 1px 1px;
+	.tab-pane {
+	  padding: 40px 20px 0;
+	  @include breakpoint-in(768px, 992px) {
+		padding-left: 5px;
+		padding-right: 5px;
+	  }
+	}
+	.news-list {
+	  margin: 0;
+	  li {
+		width: 100%;
+		clear: both;
+		overflow: hidden;
+		margin-bottom: 40px;
+		.zo-image {
+		  width: 70px;
+		  height: 70px;
+		  float: left;
+		  + .zo-details {
+			padding-left: 100px;
+		  }
+		}
+		.zo-details {
+		  line-height: normal;
+		  h4 {
+			font-size: 16px;
+			line-height: normal;
+			font-weight: 400;
+			letter-spacing: 0;
+			margin: 0 0 5px;
+			padding: 0;
+		  }
+		  a {
+			font-size: 16px;
+		  }
+		}
+	  }
+	}
+  }
+}
+
+/*
+* Recent Comments
+*/
+.widget_recent_comments {
+  .recentcomments {
+	color: #c8c8c8;
+  }
+}
+
+/**
+* Rss Widget
+*/
+.widget_rss {
+  ul li {
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid $primary_color;
+  }
+  .rssSummary {
+	line-height: 30px;
+  }
+}
+
+/* Lastet new, recent post with thumb */
+.wpb_widgetised_column .widget.widget_zo-recent-posts-widget-with-thumbnails {
+  margin-bottom: 0;
+}
+
+/**
+* Social
+*/
+.widget_zo_social_widget {
+  .zo-social {
+	&.default {
+	  border-bottom: 1px solid #2f2f2f;
+	}
+  }
+}
+
+.zo-social {
+  list-style: none inside;
+  margin: 0 0 20px;
+  padding: 0 0 20px;
+  li {
+	display: inline-block;
+  }
+  &.default {
+	text-align: left;
+	li {
+	  margin-right: 25px;
+	  + li {
+		margin-left: 25px;
+	  }
+	  a:hover {
+		color: #fff !important;
+	  }
+	}
+  }
+  &.left {
+	text-align: left!important;
+  }
+  &.circle {
+	text-align: center;
+	&.dark {
+	  li {
+		a {
+		  color: #3c3c3c;
+		}
+	  }
+	}
+	li {
+	  margin-right: 16px;
+	  margin-bottom: 20px;
+	  a {
+		color: #dbdbdb;
+		display: inline-block;
+		width: 50px;
+		height: 50px;
+		line-height: 46px;
+		font-size: 17px;
+		text-align: center;
+		@include border-radius(100%);
+		border: 1px solid #dbdbdb;
+		i {
+		  line-height: normal;
+		}
+		&:hover {
+		  color: $primary_color;
+		  border-color: $primary_color;
+		}
+	  }
+	}
+  }
+}
+
+/**
+* Recent Entries
+*/
+footer {
+  .widget_recent_entries {
+	ul {
+	  list-style: none inside;
+	  margin: 0;
+	  padding: 0;
+	  li {
+		border-bottom: 1px solid #2f2f2f;
+		margin-bottom: 15px;
+		padding-bottom: 10px;
+		a {
+		  display: block;
+		  font-size: 13px;
+		  line-height: 13px;
+		  color: #676767;
+		  letter-spacing: 0.05em;
+		  text-transform: uppercase;
+		  padding-bottom: 10px;
+		  &:hover {
+			color: $primary_color;
+		  }
+		}
+		span {
+		  display: block;
+		  color: #3f3f3f;
+		  font-size: 13px;
+		}
+	  }
+	}
+  }
+}
+
+/* ==========================================================================
+   [Start] 4. Widget Author
+========================================================================== */
+.about-author {
+  text-align: center;
+  img {
+	margin-bottom: 20px;
+  }
+  h3 {
+	font-size: 16px;
+	text-transform: uppercase;
+	font-weight: 600;
+	margin: 0;
+  }
+  p {
+	font-size: 18px;
+	font-style: italic;
+	font-family: "'Crimson Text'";
+	margin-bottom: 30px;
+  }
+  .zo-social.circle {
+	li {
+	  margin-bottom: 10px;
+	  padding: 0;
+	  &:before {
+		content: '';
+		padding-right: 0;
+	  }
+	  a {
+		.fa {
+		  color: #3c3c3c;
+		}
+		&:hover {
+		  background: $primary_color;
+		  .fa {
+			color: #fff;
+
+		  }
+		}
+	  }
+	}
+  }
+}
+
+/* ==========================================================================
+   [End] 4. Widget Author
+========================================================================== */
+/* ==========================================================================
+   [End] 5. Widget Lasted Post
+========================================================================== */
+.widget_zo-recent-posts-widget-with-thumbnails .latest-post {
+  padding-bottom: 10px;
+  .latest-post-item {
+	overflow: hidden;
+	&:not(:last-child) {
+	  border-bottom: 1px solid #ebebeb;
+	  padding-bottom: 20px;
+	}
+	&:not(:first-child) {
+	  padding-top: 20px;
+	}
+	.recent-thumb {
+	  float: left;
+	  width: 70px;
+	}
+	.zo-post-title {
+	  font-size: 16px;
+	  line-height: 16px;
+	  margin-bottom: 5px;
+	  padding-left: 90px;
+	  a {
+		color: inherit;
+		&:hover {
+		  color: $primary_color;
+		}
+	  }
+	}
+	.zo-post-date {
+	  padding-left: 90px;
+	  font-size: 12px;
+	  .zo-blog-comment {
+		a {
+		  color: $primary_color;
+		}
+	  }
+	}
+  }
+}
+
+/* ==========================================================================
+   [Start] 4. Widget Lasted Post
+========================================================================== */
+/* ==========================================================================
+   [Start] 4. Flickr
+========================================================================== */
+.zframe-flickr-wrap-ltr a,
+.zframe-flickr-wrap-rtl a {
+	position: relative;
+	&:before {
+		top: 0;
+		left: 0;
+		content: '';
+		background: $primary_color;
+	}
+	&:after {
+		color: #fff;
+		content: "\f002";
+		font-family: FontAwesome;
+		left: 40%;
+		top: 35%;
+	}
+	&:after,
+	&:before {
+		height: 100%;
+		position: absolute;
+		width: 100%;
+		opacity: 0;
+		@include transition(opacity .25s ease-in-out);
+	}
+	&:hover {
+		&:after,
+		&:before {
+			opacity: 0.9;
+		}
+	}
+}
+/**
+* Contact Info
+*/
+.contact-info {
+  margin: 0;
+  padding: 0;
+  li {
+	list-style: none inside;
+	overflow: hidden;
+	i {
+	  float: left;
+	  margin-top: 8px;
+	}
+	span {
+	  display: block;
+	  padding-left: 30px;
+	}
+  }
+}
