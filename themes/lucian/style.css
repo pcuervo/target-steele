@@ -18,9 +18,14 @@ Use it to make something cool, have fun, and share what you've learned with othe
 /*.color-gray { color: #a5a5a5; }*/
 /*.color-gray-darck { color: #333; }*/
 /*.color-primary { color: #2b83be; }*/
+/*.color-primary-opacity { color: #2b83be; }*/
 
 /*MARGIN*/
+.no-margin-bottom { margin-bottom: 0px; }
 .margin-bottom { margin-bottom: 20px; }
+
+/*TIPOGRAPHY*/
+.line-height--53 { line-height: 53px; }
 
 /*HEADER*/
 #zo-header-navigation .main-navigation .menu-main-menu > li { line-height: 60px!important; }
@@ -31,9 +36,47 @@ Use it to make something cool, have fun, and share what you've learned with othe
 	border: none;
 	margin-bottom: 0px!important;
 	font-size: 16px;
-} mediana familiar completa
+}
 #zo-header-navigation .main-navigation .menu-main-menu > li.current-menu-item > a:hover { color: #2b83be!important; }
+
+/*BUTTONS*/
+.btn.btn-primary.vc_general.vc_btn3,
+input[type="submit"] {
+	background-color: #2b83be!important;
+	color: #fff!important;
+	border: 1px solid #2b83be!important;
+}
+.btn.btn-primary.vc_general.vc_btn3:hover,
+input[type="submit"]:hover {
+	background-color: #fff!important;
+	color: #2b83be!important;
+}
+
+input[type="submit"] { border-radius: 5px; }
+input[type="submit"]:hover { border: 1px solid #2b83be!important; }
+
+/*Slider*/
+.vc_images_carousel .vc_carousel-indicators { bottom: -35px!important; }
+
+@media screen and (max-width:767px) {
+	.wpb_images_carousel .vc_images_carousel .vc_carousel-inner .vc_carousel-slideline .vc_carousel-slideline-inner .vc_item {
+		width: 16.66%!important;
+		margin-bottom: 20px;
+	}
+	.wpb_images_carousel .vc_images_carousel .vc_carousel-inner .vc_carousel-slideline .vc_carousel-slideline-inner .vc_item + .vc_item { margin-top: 0px!important; }
+}
+
+/*FORM*/
+.wpcf7-form-control-wrap input.wpcf7-form-control,
+.wpcf7-form textarea {
+	background-color: rgba(108, 108, 108, 0.1)!important;
+	border: none!important;
+	color: #333!important;
+}
+
+textarea { height: 100px!important; max-height: 100px!important; }
 
 /*hide*/
 .style-toggle.close,
-.heading--hidden { display: none!important; }
+.heading--hidden,
+footer.entry-meta { display: none!important; }
