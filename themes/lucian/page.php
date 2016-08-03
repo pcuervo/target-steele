@@ -14,7 +14,7 @@
  */
 
 get_header(); ?>
-<div id="page-default" class="<?php zo_main_class(); ?>">
+<div id="page-default" class="[ container-fluid ]">
 	<div id="primary" class="row">
 		<div id="content" role="main">
 
