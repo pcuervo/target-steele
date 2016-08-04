@@ -67,6 +67,11 @@ Use it to make something cool, have fun, and share what you've learned with othe
 	body #page #main { margin-top: 60px!important; }
 	#zo-header-navigation.collapse { top: 60px!important; }
 }
+
+/*FOOTER*/
+.widget_zo_social_widget .zo-social.default { border: none!important; }
+.zo-social { margin: 0px!important; padding: 0px!important;}
+
 /*BUTTONS*/
 .btn.btn-primary.vc_general.vc_btn3,
 input[type="submit"] {
