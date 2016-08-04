@@ -121,6 +121,13 @@ textarea { height: 100px!important; max-height: 100px!important; }
 
 .ajax-loader { width: 40px; }
 
+.wpcf7-form input:focus,
+.wpcf7-form textarea:focus {
+	outline: none !important;
+    border-color: #253946;
+    box-shadow: 0 0 7px #253946;
+}
+
 /*INFO CONTACT*/
 #contacto-info h3 {
 	text-transform: initial!important;
