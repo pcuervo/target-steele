@@ -62,7 +62,7 @@ Use it to make something cool, have fun, and share what you've learned with othe
 	/*Header mobile*/
 .pe-7s-menu { background-color: #253946!important; }
 
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
 	body #zo-header { margin: 0px!important; }
 	body #page #main { margin-top: 60px!important; }
 	#zo-header-navigation.collapse { top: 60px!important; }
@@ -117,8 +117,9 @@ textarea { height: 100px!important; max-height: 100px!important; }
 
 .wpcf7-form .wpcf7-not-valid-tip,
 .wpcf7-form .wpcf7-validation-errors { color: #253946!important; }
-
 .wpcf7-form .wpcf7-validation-errors { border-color: #253946!important; }
+
+.ajax-loader { width: 40px; }
 
 /*INFO CONTACT*/
 #contacto-info h3 {
