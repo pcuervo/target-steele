@@ -42,6 +42,10 @@ Use it to make something cool, have fun, and share what you've learned with othe
 
 /*BACKGROUN*/
 .background-position-bottom { background-position: bottom!important; }
+.background-dark-opacity { background-color: rgba(0,0,0,0.3); }
+
+/*GRID*/
+@media (max-width:767px) { .col-6-sm { width: 50%!important; float: left; } }
 
 /*HEADER*/
 #zo-header-navigation .main-navigation .menu-main-menu > li { line-height: 60px!important; }
