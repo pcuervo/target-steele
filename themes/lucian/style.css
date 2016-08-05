@@ -78,6 +78,9 @@ Use it to make something cool, have fun, and share what you've learned with othe
 
 footer .zo-social.default { text-align: right!important; }
 
+footer .textwidget,
+footer i { color: #cecece!important; }
+
 /*BUTTONS*/
 .btn.btn-primary.vc_general.vc_btn3,
 input[type="submit"] {
