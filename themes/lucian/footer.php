@@ -16,10 +16,10 @@
 			<div class="container">
 				<div class="row">
 					<?php if (is_active_sidebar('sidebar-5')) : ?>
-						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 footer-first"><?php dynamic_sidebar('sidebar-5'); ?></div>
+						<div class="col-xs-8  footer-first"><?php dynamic_sidebar('sidebar-5'); ?></div>
 					<?php endif; ?>
 					<?php if (is_active_sidebar('sidebar-6')) : ?>
-						<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 footer-second"><?php dynamic_sidebar('sidebar-6'); ?></div>
+						<div class="col-xs-4 footer-second"><?php dynamic_sidebar('sidebar-6'); ?></div>
 					<?php endif; ?>
 					<?php if (is_active_sidebar('sidebar-7')) : ?>
 						<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 footer-third"><?php dynamic_sidebar('sidebar-7'); ?></div>
