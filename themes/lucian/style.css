@@ -23,6 +23,7 @@ Use it to make something cool, have fun, and share what you've learned with othe
 /*MARGIN*/
 .no-margin-bottom { margin-bottom: 0px; }
 .margin-bottom { margin-bottom: 20px; }
+.margin-right---small { margin-right: 10px; }
 
 @media (min-width: 768px){ .col-offset-1_8 { margin-left: 12.5%; } }
 
@@ -87,6 +88,8 @@ footer aside { text-align: center; }
 
 #zo-footer-top [class^="col-"] { margin-bottom: 10px!important; }
 #zo-footer-top [class^="col-"]:last-child { margin-bottom: 0px!important; }
+
+#zo-footer-top img.logo-footer { width: 80px; }
 
 /*BUTTONS*/
 .btn.btn-primary.vc_general.vc_btn3,
