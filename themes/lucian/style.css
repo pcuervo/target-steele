@@ -61,10 +61,6 @@ Use it to make something cool, have fun, and share what you've learned with othe
 #zo-header-navigation .main-navigation .menu-main-menu > li.current-menu-item > a:hover,
 .menu-item-language a:hover { color: #2b83be!important; }
 
-#counter_zo-counter-3::before {
-	content: '+';
-}
-
 @media (max-width: 1110px){ #zo-header-navigation .main-navigation .menu-main-menu > li> a { margin-right: 11px!important; } }
 @media (max-width: 1199px){ #zo-header-navigation .main-navigation .menu-main-menu > li> a { margin-right: 14px!important; } }
 @media (min-width: 1200px){ #zo-header-navigation .main-navigation .menu-main-menu > li> a { margin-right: 30px!important; } }
@@ -88,6 +84,9 @@ footer .textwidget,
 footer i { color: #cecece!important; }
 
 footer aside { text-align: center; }
+
+#zo-footer-top [class^="col-"] { margin-bottom: 10px!important; }
+#zo-footer-top [class^="col-"]:last-child { margin-bottom: 0px!important; }
 
 /*BUTTONS*/
 .btn.btn-primary.vc_general.vc_btn3,
@@ -158,6 +157,17 @@ textarea { height: 100px!important; max-height: 100px!important; }
 /*Counter*/
 .zo-counter-layout-default .zo-counter-inner .zo-counter-body { width: 85%; }
 .zo-counter-layout-default .zo-counter-inner .zo-icon { width: 15%; }
+#counter_zo-counter-3::before {
+	content: '+';
+}
+.template-zo_counter_single--style-3 .zo-counter-item .zo-icon {
+	width: auto!important;
+	height: auto!important;
+	line-height: 50px!important;
+	background-color: transparent!important;
+	color: #2b83be!important;
+}
+
 /*hide*/
 .style-toggle.close,
 .heading--hidden,
