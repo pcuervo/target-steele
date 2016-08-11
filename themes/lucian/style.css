@@ -91,6 +91,8 @@ footer aside { text-align: center; }
 
 #zo-footer-top img.logo-footer { width: 80px; }
 
+#zo-footer-top .textwidget { line-height: 50px; }
+
 /*BUTTONS*/
 .btn.btn-primary.vc_general.vc_btn3,
 input[type="submit"] {
