@@ -190,6 +190,10 @@ footer.entry-meta { display: none!important; }
 .vc_grid-filter li.vc_grid-filter-item:last-child { display: none!important; }
 .vc_grid-filter>.vc_grid-filter-item { cursor: initial!important; }
 .vc_grid-filter.vc_grid-filter-color-grey>.vc_grid-filter-item:hover { background-color: transparent!important; }
+.vc_grid-filter.vc_grid-filter-color-grey>.vc_grid-filter-item:hover>span { color: #333333!important; }
+
+.hover-text { color: #333333!important; }
+.hover-text p { line-height: 22px!important; font-weight: 300!important; }
 
 /*WPML*/
 .sub-menu.submenu-languages {
