@@ -158,8 +158,8 @@ textarea { height: 100px!important; max-height: 100px!important; }
 	font-size: 16px!important;
 }
 /*Nosostros*/
-.icon-large i { font-size: 25px!important; }
-.icon-xlarge i { font-size: 30px!important; }
+.icon-large i { font-size: 35px!important; }
+.icon-xlarge i { font-size: 40px!important; }
 
 /*Counter*/
 .zo-counter-layout-default .zo-counter-inner .zo-counter-body { width: 85%; }
@@ -194,6 +194,13 @@ footer.entry-meta { display: none!important; }
 
 .hover-text { color: #333333!important; }
 .hover-text p { line-height: 22px!important; font-weight: 300!important; }
+
+.vc_gitem-post-data-source-post_categories { display: none; }
+
+/*Servicios*/
+.template-zo_fancybox--style-9 .zo-fancybox-inner .zo-fancybox-icon { background-color: #2b83be!important; }
+.template-zo_fancybox--style-9 .zo-fancybox-inner:hover .zo-fancybox-icon { background-color: transparent!important; }
+.template-zo_fancybox--style-9 .zo-fancybox-inner:hover .zo-fancybox-icon i { color: #2b83be!important; }
 
 /*WPML*/
 .sub-menu.submenu-languages {
