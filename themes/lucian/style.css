@@ -24,6 +24,7 @@ Use it to make something cool, have fun, and share what you've learned with othe
 .no-margin-bottom { margin-bottom: 0px; }
 .margin-bottom { margin-bottom: 20px; }
 .margin-right---small { margin-right: 10px; }
+.margin-right { margin-right: 20px; }
 
 @media (min-width: 768px){ .col-offset-1_8 { margin-left: 12.5%; } }
 @media (min-width: 768px){ .col-offset-1_4 { margin-left: 25%; } }
@@ -53,6 +54,7 @@ Use it to make something cool, have fun, and share what you've learned with othe
 /*HEADER*/
 #zo-header-navigation .main-navigation .menu-main-menu > li { line-height: 60px!important; }
 #zo-header-navigation .main-navigation .menu-main-menu > li.current-menu-item > a,
+#zo-header-navigation .main-navigation .menu-main-menu > li > a,
 .menu-item-language a {
 	color: #a5a5a5!important;
 	text-transform: capitalize!important;
@@ -62,6 +64,7 @@ Use it to make something cool, have fun, and share what you've learned with othe
 	font-size: 16px!important;
 }
 #zo-header-navigation .main-navigation .menu-main-menu > li.current-menu-item > a:hover,
+#zo-header-navigation .main-navigation .menu-main-menu > li > a:hover,
 .menu-item-language a:hover { color: #2b83be!important; }
 
 @media (max-width: 1110px){ #zo-header-navigation .main-navigation .menu-main-menu > li> a { margin-right: 11px!important; } }
