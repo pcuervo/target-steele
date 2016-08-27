@@ -25,6 +25,7 @@ Use it to make something cool, have fun, and share what you've learned with othe
 .margin-bottom { margin-bottom: 20px; }
 .margin-right---small { margin-right: 10px; }
 .margin-right { margin-right: 20px; }
+.margin-right--xlarge { margin-right: 40px; }
 
 @media (min-width: 768px){ .col-offset-1_8 { margin-left: 12.5%; } }
 @media (min-width: 768px){ .col-offset-1_4 { margin-left: 25%; } }
