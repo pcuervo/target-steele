@@ -199,13 +199,27 @@ footer.entry-meta { display: none!important; }
 .hover-text { color: #333333!important; }
 .hover-text p { line-height: 22px!important; font-weight: 300!important; }
 
-.vc_gitem-animated-block { padding: 0 20%; }
+/*.vc_gitem-animated-block { padding: 0 18%; }
 @media(max-width: 1200px){ .vc_gitem-animated-block { padding: 10% 20%; } }
-@media(max-width: 910px){ .vc_gitem-animated-block { padding: 15% 8%; } }
+@media(max-width: 910px){ .vc_gitem-animated-block { padding: 15% 6%; } }
 @media(max-width: 767px){ .vc_gitem-animated-block { padding: 0 35%; } }
 @media(max-width: 600px){ .vc_gitem-animated-block { padding: 0 28%; } }
 @media(max-width: 479px){ .vc_gitem-animated-block { padding: 0 20%; } }
 @media(max-width: 400px){ .vc_gitem-animated-block { padding: 0%; } }
+@media(max-width: 1200px){
+	.vc_gitem-animated-block { padding: 20% 5%; }
+	.vc_gitem-animated-block p { font-size: 14px; }
+}*/
+.vc_gitem-animated-block { padding: 15%; }
+@media(max-width: 1200px){ .vc_gitem-animated-block { padding: 10% 20%; } }
+@media(max-width: 910px){ .vc_gitem-animated-block { padding: 15% 6%; } }
+@media(max-width: 767px){ .vc_gitem-animated-block { padding: 0 35%; } }
+@media(max-width: 600px){ .vc_gitem-animated-block { padding: 0 28%; } }
+@media(max-width: 479px){ .vc_gitem-animated-block { padding: 0 20%; } }
+@media(max-width: 400px){ .vc_gitem-animated-block { padding: 0%; } }
+
+@media(min-width: 768px) and (max-width: 1200px){ #content-aliados .vc_col-sm-3 { width: 33.333333333%!important; } }
+
 
 /*Servicios*/
 .template-zo_fancybox--style-9 .zo-fancybox-inner .zo-fancybox-icon { background-color: #2b83be!important; }
