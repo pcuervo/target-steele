@@ -199,7 +199,13 @@ footer.entry-meta { display: none!important; }
 .hover-text { color: #333333!important; }
 .hover-text p { line-height: 22px!important; font-weight: 300!important; }
 
-.vc_gitem-animated-block { padding: 0 20%; max-height: 300px; }
+.vc_gitem-animated-block { padding: 0 20%; }
+@media(max-width: 1200px){ .vc_gitem-animated-block { padding: 10% 20%; } }
+@media(max-width: 910px){ .vc_gitem-animated-block { padding: 15% 8%; } }
+@media(max-width: 767px){ .vc_gitem-animated-block { padding: 0 35%; } }
+@media(max-width: 600px){ .vc_gitem-animated-block { padding: 0 28%; } }
+@media(max-width: 479px){ .vc_gitem-animated-block { padding: 0 20%; } }
+@media(max-width: 400px){ .vc_gitem-animated-block { padding: 0%; } }
 
 /*Servicios*/
 .template-zo_fancybox--style-9 .zo-fancybox-inner .zo-fancybox-icon { background-color: #2b83be!important; }
