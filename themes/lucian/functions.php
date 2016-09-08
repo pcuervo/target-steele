@@ -146,13 +146,13 @@ function zo_setup() {
 
 	// Adds title tag
 	add_theme_support( "title-tag" );
-	
+
 	// Add woocommerce
 	add_theme_support( 'woocommerce' );
-	
+
 	// Adds custom header
 	add_theme_support( 'custom-header' );
-	
+
 	// Adds RSS feed links to <head> for posts and comments.
 	add_theme_support( 'automatic-feed-links' );
 
@@ -223,9 +223,9 @@ function zo_post_meta_data(){
  * @since ZO SuperHeroes 1.0
  */
 function zo_scripts_styles() {
-    
+
 	global $smof_data, $wp_styles, $wp_scripts, $zo_meta;
-	
+
 	/** theme options. */
 	$script_options = array(
 	    'menu_sticky'=> $smof_data['menu_sticky'],
@@ -240,13 +240,13 @@ function zo_scripts_styles() {
 		$script_options['menu_sticky'] = 1;
 	}
 	/*------------------------------------- JavaScript ---------------------------------------*/
-	
-	
+
+
 	/** --------------------------libs--------------------------------- */
 
 	/* Adds JavaScript Bootstrap. */
 	wp_enqueue_script('zotheme-bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array( 'jquery' ), '3.3.2');
-	
+
 	/* Add parallax plugin. */
 	if($smof_data['parallax']){
 	   wp_enqueue_script('zotheme-parallax', get_template_directory_uri() . '/assets/js/jquery.parallax-1.1.3.js', array( 'jquery' ), '1.1.3', true);
@@ -270,7 +270,7 @@ function zo_scripts_styles() {
 		wp_enqueue_script( 'comment-reply' );
 
     /*------------------------------------- Stylesheet ---------------------------------------*/
-	
+
 	/** --------------------------libs--------------------------------- */
 	/* Loads Animation stylesheet*/
 	wp_enqueue_style('zotheme-animation', get_template_directory_uri() . '/assets/css/animate.css', array(), '3.3.0');
@@ -283,19 +283,19 @@ function zo_scripts_styles() {
 	wp_enqueue_style('zotheme-font-linearicons');
 	/* Loads Pe Icon. */
 	wp_enqueue_style('zotheme-pe-icon', get_template_directory_uri() . '/assets/css/pe-icon-7-stroke.css', array(), '1.0.1');
-	
+
 	/** --------------------------custom------------------------------- */
-	
+
 	/* Loads our main stylesheet. */
 	wp_enqueue_style( 'zotheme-style', get_stylesheet_uri(), array( 'zotheme-bootstrap' ));
 
 	/* Loads the Internet Explorer specific stylesheet. */
 	wp_enqueue_style( 'zotheme-ie', get_template_directory_uri() . '/assets/css/ie.css', array( 'zotheme-style' ), '20121010' );
 	$wp_styles->add_data( 'zotheme-ie', 'conditional', 'lt IE 9' );
-	/* Load widgets scripts*/		
+	/* Load widgets scripts*/
 	wp_enqueue_script('zo_widget_scripts', get_template_directory_uri() . '/inc/widgets/widgets.js');
 	wp_enqueue_style('zo_widget_scripts', get_template_directory_uri() . '/inc/widgets/widgets.css');
-	
+
 	/* Load static css*/
 	$file = 'static.css';
 	if(isset($zo_meta->_zo_presets_color) && $zo_meta->_zo_presets_color){
@@ -365,7 +365,7 @@ function zo_widgets_init() {
 		'before_title' => '<h3 class="wg-title">',
 		'after_title' => '</h3>',
 	) );
-	
+
 	register_sidebar( array(
     	'name' => esc_html__( 'Menu Right', 'lucian' ),
     	'id' => 'header-right',
@@ -375,7 +375,7 @@ function zo_widgets_init() {
     	'before_title' => '<h3 class="wg-title">',
     	'after_title' => '</h3>',
 	) );
-	
+
 	register_sidebar( array(
     	'name' => esc_html__( 'Footer Top 1', 'lucian' ),
     	'id' => 'sidebar-5',
@@ -385,7 +385,7 @@ function zo_widgets_init() {
     	'before_title' => '<h3 class="wg-title">',
     	'after_title' => '</h3>',
 	) );
-	
+
 	register_sidebar( array(
     	'name' => esc_html__( 'Footer Top 2', 'lucian' ),
     	'id' => 'sidebar-6',
@@ -395,7 +395,7 @@ function zo_widgets_init() {
     	'before_title' => '<h3 class="wg-title">',
     	'after_title' => '</h3>',
 	) );
-	
+
 	register_sidebar( array(
     	'name' => esc_html__( 'Footer Top 3', 'lucian' ),
     	'id' => 'sidebar-7',
@@ -405,7 +405,7 @@ function zo_widgets_init() {
     	'before_title' => '<h3 class="wg-title">',
     	'after_title' => '</h3>',
 	) );
-	
+
 	register_sidebar( array(
     	'name' => esc_html__( 'Footer Top 4', 'lucian' ),
     	'id' => 'sidebar-8',
@@ -415,7 +415,7 @@ function zo_widgets_init() {
     	'before_title' => '<h3 class="wg-title">',
     	'after_title' => '</h3>',
 	) );
-	
+
 	register_sidebar( array(
     	'name' => esc_html__( 'Footer Bottom', 'lucian' ),
     	'id' => 'sidebar-9',
@@ -483,21 +483,21 @@ add_filter( 'wp_page_menu_args', 'zo_page_menu_args' );
 
 /**
  * Add field subtitle to post.
- * 
+ *
  * @since 1.0.0
  */
 function zo_add_subtitle_field(){
     global $post, $zo_meta;
-    
+
     /* get current_screen. */
     $screen = get_current_screen();
-    
+
     /* show field in post. */
     if(in_array($screen->id, array('post'))){
-        
+
         /* get value. */
         $value = get_post_meta($post->ID, 'post_subtitle', true);
-        
+
         /* html. */
         echo '<div class="subtitle"><input type="text" name="post_subtitle" value="'.esc_attr($value).'" id="subtitle" placeholder = "'.esc_html__('Subtitle', 'lucian').'" style="width: 100%;margin-top: 4px;"></div>';
     }
@@ -506,12 +506,12 @@ function zo_add_subtitle_field(){
 //add_action( 'edit_form_after_title', 'zo_add_subtitle_field' );
 
 /**
- * Save custom theme meta. 
- * 
+ * Save custom theme meta.
+ *
  * @since 1.0.0
  */
 function zo_save_meta_boxes($post_id) {
-    
+
     if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
         return;
     }
@@ -533,7 +533,7 @@ function zo_paging_nav($query = null) {
 	if($query){
 		$zo_query = $query;
 	}else{
-		$zo_query = $GLOBALS['wp_query'];		
+		$zo_query = $GLOBALS['wp_query'];
 	}
 	if ( $zo_query->max_num_pages < 2 ) {
 		return;
@@ -596,6 +596,7 @@ function zo_post_nav($prev_title = NULL, $next_title = NULL) {
     if ( ! $next && ! $previous )
         return;
     ?>
+    <h4 class="[ text-center ]">Otros aliados</h4>
 	<nav class="navigation post-navigation" role="navigation">
 		<div class="nav-links clearfix">
 			<?php
