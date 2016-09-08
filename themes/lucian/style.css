@@ -236,8 +236,8 @@ footer.entry-meta { display: none!important; }
 
 /*Single blog*/
 .social-share, .zo-blog-meta,
-.col-xs-12.col-sm-3.col-md-3.col-lg-3 { display: none!important; }
-.col-sm-9.col-md-9.col-lg-9 { width: 100%!important; }
+.single .container #primary.col-xs-12.col-sm-3.col-md-3.col-lg-3 { display: none!important; }
+.single .container #primary.col-sm-9.col-md-9.col-lg-9 { width: 100%!important; }
 .zo-blog-image img { max-width: 400px!important; }
 @media( max-width:479px ){ .zo-blog-image img { max-width: 200px!important; } }
 @media( min-width:768px ){
