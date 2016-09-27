@@ -16,6 +16,7 @@
     <div class="zo-blog-detail">
 	    <h2 class="zo-blog-title"><?php the_title(); ?></h2>
 	    <?php if(has_category()): ?>
+            <div class="[ hide-categories ]"></div>
 		    <div class="zo-blog-category"><?php the_terms( get_the_ID(), 'category', '', ' / ' ); ?></div>
 	    <?php endif; ?>
         <?php zo_archive_detail(); ?>
