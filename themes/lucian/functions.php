@@ -22,6 +22,8 @@
  * @since 1.0.0
  */
 
+
+
 /* Add base functions */
 require( get_template_directory() . '/inc/base.class.php' );
 
@@ -596,7 +598,17 @@ function zo_post_nav($prev_title = NULL, $next_title = NULL) {
     if ( ! $next && ! $previous )
         return;
     ?>
-    <h4 class="[ text-center ]">Otros aliados</h4>
+
+   <?php
+   $lang = isset( $_GET['lang'] ) ? $_GET['lang'] : 'es';
+    ?>
+    <h4 class="[ text-center ]">
+	<?php if( 'es' == $lang ) : ?>
+		Otros aliados
+	<?php else : ?>
+		Other allies
+	<?php endif; ?>
+    </h4>
 	<nav class="navigation post-navigation" role="navigation">
 		<div class="nav-links clearfix">
 			<?php

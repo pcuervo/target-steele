@@ -3,7 +3,7 @@
 Plugin Name: WP Fastest Cache
 Plugin URI: http://wordpress.org/plugins/wp-fastest-cache/
 Description: The simplest and fastest WP Cache system
-Version: 0.8.6.0
+Version: 0.8.6.1
 Author: Emre Vona
 Author URI: http://tr.linkedin.com/in/emrevona
 Text Domain: wp-fastest-cache
@@ -74,43 +74,44 @@ GNU General Public License for more details.
 				$this->rm_folder_recursively($this->getWpContentDir()."/cache/tmpWpfc");
 			}
 
-			if(isset($_POST) && isset($_POST["action"]) && $_POST["action"] == "vc_get_vc_grid_data"){
+			if(isset($_POST) && isset($_POST["_wpcf7_is_ajax_call"]) && $_POST["_wpcf7_is_ajax_call"] == "1"){
+				if(isset($_POST["_wpnonce"]) && $_POST["_wpnonce"]){
+					//for Contact Form 7
+					include_once ABSPATH."wp-includes/pluggable.php";
+
+					$_POST["_wpnonce"] = substr( wp_hash($_POST["_wpcf7"], 'nonce' ), -12, 10 );
+				}
+			}else if(isset($_POST) && isset($_POST["action"]) && $_POST["action"] == "wpestate_ajax_agent_contact_form"){
+				if(isset($_POST["nonce"]) && $_POST["nonce"]){
+					//for WpResidence theme contact form
+					include_once ABSPATH."wp-includes/pluggable.php";
+
+					foreach ($_POST as $key => &$value) {
+						if(preg_match("/nonce/", $key)){
+							$value = wp_create_nonce('ajax-property-contact');
+						}
+					}
+				}
+			}else if(isset($_POST) && isset($_POST["action"]) && $_POST["action"] == "vc_get_vc_grid_data"){
 				if(isset($_POST["vc_post_id"]) && $_POST["vc_post_id"]){
 					if(isset($_POST["_vcnonce"]) && $_POST["_vcnonce"]){
-						$this->setCustomInterval();
+						//for Visual Composer Grid-View
+						include_once ABSPATH."wp-includes/pluggable.php";
 
-						$schedules_rules = array();
-						$exist_cronjob = false;
-						$wpfc_timeout_number = 0;
-
-						$crons = _get_cron_array();
-
-						foreach ((array)$crons as $cron_key => $cron_value) {
-							foreach ( (array) $cron_value as $hook => $events ) {
-								if(preg_match("/^wp\_fastest\_cache(.*)/", $hook, $id)){
-									if(!$id[1] || preg_match("/^\_(\d+)$/", $id[1])){
-										$wpfc_timeout_number++;
-
-										foreach ( (array) $events as $event_key => $event ) {
-											$schedules = wp_get_schedules();
-
-											if(isset($event["args"]) && isset($event["args"][0])){
-												if($event["args"][0] == '{"prefix":"all","content":"all"}'){
-													if($schedules[$event["schedule"]]["interval"] <= 86400){
-														$exist_cronjob = true;
-													}
-												}
-											}
-										}
-									}
-								}
+						foreach ($_POST as $key => &$value) {
+							if(preg_match("/_vcnonce/", $key)){
+								$value = wp_create_nonce('vc-nonce-vc-public-nonce');
 							}
 						}
+					}
+				}
+			}else if(isset($_POST) && isset($_POST["action"]) && $_POST["action"] == "polls"){
+				//for WP-Polls
+				include_once ABSPATH."wp-includes/pluggable.php";
 
-						if(!$exist_cronjob){
-							$args = array("prefix" => "all", "content" => "all");
-							wp_schedule_event(time(), "onceaday", "wp_fastest_cache_".$wpfc_timeout_number, array(json_encode($args)));
-						}
+				foreach ($_POST as $key => &$value) {
+					if(preg_match("/poll_\d+_nonce/", $key)){
+						$value = wp_create_nonce('poll_'.$_POST["poll_id"].'-nonce');
 					}
 				}
 			}else if(isset($_POST) && isset($_POST["action"]) && $_POST["action"] == "wpfc_wppolls_ajax_request"){
@@ -124,6 +125,14 @@ GNU General Public License for more details.
 					$img = new WpFastestCacheImageOptimisation();
 					$img->hook();
 				}
+			}else if(isset($_GET) && isset($_GET["action"])  && $_GET["action"] == "wpfastestcache"){
+				if(isset($_GET) && isset($_GET["type"])  && $_GET["type"] == "preload"){
+					// /?action=wpfastestcache&type=preload
+					
+					$this->create_preload_cache();
+				}
+				
+				exit;
 			}else{
 				$this->setCustomInterval();
 
@@ -153,22 +162,25 @@ GNU General Public License for more details.
 				}
 
 				if(is_admin()){
-					//for wp-panel
-					
-					if($this->isPluginActive("wp-fastest-cache-premium/wpFastestCachePremium.php")){
-						include_once $this->get_premium_path("image.php");
+					// to avoid loading menu and optionPage() twice
+					if(!class_exists("WpFastestCacheAdmin")){
+						//for wp-panel
+						
+						if($this->isPluginActive("wp-fastest-cache-premium/wpFastestCachePremium.php")){
+							include_once $this->get_premium_path("image.php");
+						}
+
+						if($this->isPluginActive("wp-fastest-cache-premium/wpFastestCachePremium.php")){
+							include_once $this->get_premium_path("logs.php");
+						}
+
+						add_action( 'wp_ajax_wpfc_cdn_template_ajax_request', array($this, 'wpfc_cdn_template_ajax_request_callback'));
+
+
+						add_action( 'plugins_loaded', array($this, 'wpfc_load_plugin_textdomain'));
+
+						$this->admin();
 					}
-
-					if($this->isPluginActive("wp-fastest-cache-premium/wpFastestCachePremium.php")){
-						include_once $this->get_premium_path("logs.php");
-					}
-
-					add_action( 'wp_ajax_wpfc_cdn_template_ajax_request', array($this, 'wpfc_cdn_template_ajax_request_callback'));
-
-
-					add_action( 'plugins_loaded', array($this, 'wpfc_load_plugin_textdomain'));
-
-					$this->admin();
 				}else{
 					if(preg_match("/wpfc-minified\/([^\/]+)\/([^\/]+)/", $this->current_url(), $path)){
 						if($sources = @scandir(WPFC_WP_CONTENT_DIR."/cache/wpfc-minified/".$path[1], 1)){
@@ -373,11 +385,40 @@ GNU General Public License for more details.
 
 		public function wpfc_save_cdn_integration_ajax_request_callback(){
 			if(current_user_can('manage_options')){
-				$values = json_encode($_POST["values"]);
-				if(get_option("WpFastestCacheCDN")){
-					update_option("WpFastestCacheCDN", $values);
+				if($data = get_option("WpFastestCacheCDN")){
+					$cdn_exist = false;
+					$arr = json_decode($data);
+
+					if(is_array($arr)){
+						foreach ($arr as $cdn_key => &$cdn_value) {
+							if($cdn_value->id == $_POST["values"]["id"]){
+								$cdn_value = $_POST["values"];
+								$cdn_exist = true;
+							}
+						}
+
+						if(!$cdn_exist){
+							array_push($arr, $_POST["values"]);	
+						}
+
+						update_option("WpFastestCacheCDN", json_encode($arr));
+					}else{
+						$tmp_arr = array();
+						
+						if($arr->id == $_POST["values"]["id"]){
+							array_push($tmp_arr, $_POST["values"]);
+						}else{
+							array_push($tmp_arr, $arr);
+							array_push($tmp_arr, $_POST["values"]);
+						}
+
+						update_option("WpFastestCacheCDN", json_encode($tmp_arr));
+					}
 				}else{
-					add_option("WpFastestCacheCDN", $values, null, "yes");
+					$arr = array();
+					array_push($arr, $_POST["values"]);
+
+					add_option("WpFastestCacheCDN", json_encode($arr), null, "yes");
 				}
 				echo json_encode(array("success" => true));
 				exit;
@@ -388,7 +429,37 @@ GNU General Public License for more details.
 
 		public function wpfc_remove_cdn_integration_ajax_request_callback(){
 			if(current_user_can('manage_options')){
-				delete_option("WpFastestCacheCDN");
+    			$cdn_values = get_option("WpFastestCacheCDN");
+
+    			if($cdn_values){
+    				$std_obj = json_decode($cdn_values);
+    				$cdn_values_arr = array();
+
+    				if(is_array($std_obj)){
+						$cdn_values_arr = $std_obj;
+					}else{
+						array_push($cdn_values_arr, $std_obj);
+					}
+
+    				foreach ($cdn_values_arr as $cdn_key => $cdn_value) {
+	    				if($cdn_value->id == "amazonaws" || $cdn_value->id == "keycdn" || $cdn_value->id == "cdn77"){
+	    					$cdn_value->id = "other";
+	    				}
+
+	    				if($cdn_value->id == $_POST["id"]){
+	    					unset($cdn_values_arr[$cdn_key]);
+	    				}
+    				}
+
+    				$cdn_values_arr = array_values($cdn_values_arr);
+    			}
+
+    			if(count($cdn_values_arr) > 0){
+    				update_option("WpFastestCacheCDN", json_encode($cdn_values_arr));
+    			}else{
+					delete_option("WpFastestCacheCDN");
+    			}
+
 				echo json_encode(array("success" => true));
 				exit;
 			}else{
@@ -425,6 +496,8 @@ GNU General Public License for more details.
 						$value["content"] = preg_replace("/\=|\'|\"/", "", $value["content"]);
 
 						$value["content"] = trim($value["content"], "/");
+						$value["content"] = str_replace("#", "", $value["content"]);
+						$value["content"] = str_replace(" ", "", $value["content"]);
 
 						if($value["prefix"] == "homepage"){
 							$this->deleteHomePageCache(false);
@@ -499,9 +572,18 @@ GNU General Public License for more details.
 					$i = 0;
 
 					foreach ($_POST["rules"] as $key => $value) {
-						$args = array("prefix" => $value["prefix"], "content" => $value["content"]);
+						if(false && preg_match("/^(daily|onceaday)$/i", $value["schedule"]) && isset($value["hour"]) && isset($value["minute"]) && strlen($value["hour"]) > 0 && strlen($value["minute"]) > 0){
+							$args = array("prefix" => $value["prefix"], "content" => $value["content"], "hour" => $value["hour"], "minute" => $value["minute"]);
 
-						wp_schedule_event(time(), $value["schedule"], "wp_fastest_cache_".$i, array(json_encode($args)));
+							$timestamp = mktime($value["hour"],$value["minute"],0,date("m"),date("d"),date("Y"));
+
+							$timestamp = $timestamp > time() ? $timestamp : $timestamp + 60*60*24;
+						}else{
+							$args = array("prefix" => $value["prefix"], "content" => $value["content"]);
+							$timestamp = time();
+						}
+
+						wp_schedule_event($timestamp, $value["schedule"], "wp_fastest_cache_".$i, array(json_encode($args)));
 						$i = $i + 1;
 					}
 				}
@@ -579,7 +661,7 @@ GNU General Public License for more details.
 
 		public function register_my_custom_menu_page(){
 			if(function_exists('add_menu_page')){ 
-				add_menu_page("WP Fastest Cache Settings", "WP Fastest Cache", 'manage_options', "wpfastestcacheoptions", array($this, 'optionsPage'), plugins_url("wp-fastest-cache/images/icon-32x32.png"), "99.".time() );
+				add_menu_page("WP Fastest Cache Settings", "WP Fastest Cache", 'manage_options', "wpfastestcacheoptions", array($this, 'optionsPage'), plugins_url("wp-fastest-cache/images/icon-32x32.png"), 99);
 				wp_enqueue_style("wp-fastest-cache", plugins_url("wp-fastest-cache/css/style.css"), array(), time(), "all");
 			}
 			
@@ -708,11 +790,25 @@ GNU General Public License for more details.
 				}
 
 				if($new_status == "publish" && $old_status == "publish"){
-					if(defined('WPFC_DELETE_ALL_CACHE_AFTER_UPDATE') && WPFC_DELETE_ALL_CACHE_AFTER_UPDATE){
-						$this->deleteCache();
-					}else{
-						$this->singleDeleteCache(false, $post->ID);
+					if(isset($this->options->wpFastestCacheUpdatePost) && isset($this->options->wpFastestCacheStatus)){
+
+						if($this->options->wpFastestCacheUpdatePost_type == "post"){
+							$this->singleDeleteCache(false, $post->ID);
+						}else if($this->options->wpFastestCacheUpdatePost_type == "all"){
+							$this->deleteCache();
+						}
+						
 					}
+
+
+					// if(defined('WPFC_DELETE_ALL_CACHE_AFTER_UPDATE') && WPFC_DELETE_ALL_CACHE_AFTER_UPDATE){
+					// 	$this->deleteCache();
+					// }else{
+					// 	$this->singleDeleteCache(false, $post->ID);
+					// }
+
+
+
 				}
 			}
 		}
@@ -1104,8 +1200,12 @@ GNU General Public License for more details.
 						$this->wpfc_remote_get($arr["url"], $user_agent);
 					}
 
+					echo count($urls)." page have been cached";
+
 		    		update_option("WpFastestCachePreLoad", json_encode($pre_load));
 				}else{
+					echo "Completed";
+					
 					wp_clear_scheduled_hook("wp_fastest_cache_Preload");
 				}
 			}
@@ -1291,6 +1391,12 @@ GNU General Public License for more details.
 			    'wpfc' => true
 		    );
 
+		    $schedules['everytwohours'] = array(
+			    'interval' => 60*60*2,
+			    'display' => __( 'Once Every 2 Hours' ),
+			    'wpfc' => true
+		    );
+
 		    $schedules['everysixhours'] = array(
 			    'interval' => 60*60*6,
 			    'display' => __( 'Once Every 6 Hours' ),
@@ -1306,6 +1412,12 @@ GNU General Public License for more details.
 		    $schedules['weekly'] = array(
 			    'interval' => 60*60*24*7,
 			    'display' => __( 'Once a Week' ),
+			    'wpfc' => true
+		    );
+
+		    $schedules['weekly'] = array(
+			    'interval' => 60*60*24*10,
+			    'display' => __( 'Once Every 10 Days' ),
 			    'wpfc' => true
 		    );
 
@@ -1371,31 +1483,37 @@ GNU General Public License for more details.
 		}
 
 		public function cdn_replace_urls($matches){
-			$this->cdn->file_types = str_replace(",", "|", $this->cdn->file_types);
+			if(count($this->cdn) > 0){
+				foreach ($this->cdn as $key => $cdn) {
+					if(preg_match("/manifest\.json\.php/i", $matches[0])){
+						return $matches[0];
+					}
 
-			if(preg_match("/manifest\.json\.php/i", $matches[0])){
-				return $matches[0];
-			}
+					$cdn->file_types = str_replace(",", "|", $cdn->file_types);
 
-			if(!preg_match("/\.(".$this->cdn->file_types.")/i", $matches[0])){
-				return $matches[0];
-			}
+					if(preg_match("/\.(".$cdn->file_types.")/i", $matches[0])){
+						if($cdn->keywords){
+							$cdn->keywords = str_replace(",", "|", $cdn->keywords);
 
-			if($this->cdn->keywords){
-				$this->cdn->keywords = str_replace(",", "|", $this->cdn->keywords);
-
-				if(!preg_match("/".$this->cdn->keywords."/i", $matches[0])){
-					return $matches[0];
+							if(preg_match("/".$cdn->keywords."/i", $matches[0])){
+								if(preg_match("/".preg_quote($cdn->originurl, "/")."/", $matches[2])){
+									$matches[0] = preg_replace("/(http(s?)\:)?\/\/(www\.)?".preg_quote($cdn->originurl, "/")."/i", $cdn->cdnurl, $matches[0]);
+								}else if(preg_match("/^(\/?)(wp-includes|wp-includes)/", $matches[2])){
+									$matches[2] = preg_replace("/^\//", "", $matches[2]);
+									$matches[0] = str_replace($matches[2], $cdn->cdnurl."/".$matches[2], $matches[0]);
+								}
+							}
+						}else{
+							if(preg_match("/".preg_quote($cdn->originurl, "/")."/", $matches[2])){
+								$matches[0] = preg_replace("/(http(s?)\:)?\/\/(www\.)?".preg_quote($cdn->originurl, "/")."/i", $cdn->cdnurl, $matches[0]);
+							}else if(preg_match("/^(\/?)(wp-includes|wp-includes)/", $matches[2])){
+								$matches[2] = preg_replace("/^\//", "", $matches[2]);
+								$matches[0] = str_replace($matches[2], $cdn->cdnurl."/".$matches[2], $matches[0]);
+							}
+						}
+					}
 				}
 			}
-
-			if(preg_match("/".preg_quote($this->cdn->originurl, "/")."/", $matches[2])){
-				$matches[0] = preg_replace("/(http(s?)\:)?\/\/(www\.)?".preg_quote($this->cdn->originurl, "/")."/i", $this->cdn->cdnurl, $matches[0]);
-			}else if(preg_match("/^(\/?)(wp-includes|wp-includes)/", $matches[2])){
-				$matches[2] = preg_replace("/^\//", "", $matches[2]);
-				$matches[0] = str_replace($matches[2], $this->cdn->cdnurl."/".$matches[2], $matches[0]);
-			}
-
 
 			return $matches[0];
 		}
@@ -1406,11 +1524,17 @@ GNU General Public License for more details.
 				$path = preg_replace("/.+\/wp-content\/(.+)/", WPFC_WP_CONTENT_DIR."/"."$1", $url);
 
 				if(file_exists($path)){
-					$myfile = fopen($path, "r") or die("Unable to open file!");
-					$data = fread($myfile, filesize($path));
-					fclose($myfile);
+					$filesize = filesize($path);
 
-					return $data;
+					if($filesize > 0){
+						$myfile = fopen($path, "r") or die("Unable to open file!");
+						$data = fread($myfile, $filesize);
+						fclose($myfile);
+
+						return $data;
+					}else{
+						return false;
+					}
 				}
 			}
 
@@ -1464,7 +1588,7 @@ GNU General Public License for more details.
 								'\bDolfin\b',
 								'Opera.*Mini|Opera.*Mobi|Android.*Opera|Mobile.*OPR\/[0-9.]+|Coast\/[0-9.]+',
 								'Skyfire',
-								'Safari\/[.0-9]*\sEdge|Mobile\sSafari\/[.0-9]*\sEdge',
+								'Mobile\sSafari\/[.0-9]*\sEdge',
 								'IEMobile|MSIEMobile', // |Trident/[.0-9]+
 								'fennec|firefox.*maemo|(Mobile|Tablet).*Firefox|Firefox.*Mobile',
 								'bolt',

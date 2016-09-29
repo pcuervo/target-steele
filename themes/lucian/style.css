@@ -265,7 +265,7 @@ footer.entry-meta { display: none!important; }
 	/*Single footer*/
 
 body.single-post #page {
-	min-height: 1042px;
+	min-height: 1100px;
 	position: relative;
 }
 
@@ -280,3 +280,10 @@ body.single-post footer {
 	width: 100%;
 	height: 50px;
 }
+
+/*Traduction*/
+.contact-spanish .spanish { display: block; }
+.contact-spanish .english { display: none; }
+
+.contact-english .spanish { display: none; }
+.contact-english .english { display: block; }

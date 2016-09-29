@@ -194,11 +194,11 @@ if (count($calls) > 1) {
             <div id="tabs">
 
                 <ul>
-                    <li><a href="#tabs-tests">Tests</a></li>
-                    <li><a href="#tabs-logging">Logging</a></li>
-                    <li><a href="#tabs-2">Semaphores and Crons</a></li>
-                    <li><a href="#tabs-4">System</a></li>
-                    <li><a href="#tabs-upgrade">Maintenance</a></li>
+                    <li><a href="#tabs-tests"><?php _e('Tests', 'newsletter')?></a></li>
+                    <li><a href="#tabs-2"><?php _e('Scheduler', 'newsletter')?></a></li>
+                    <li><a href="#tabs-logging"><?php _e('Logging', 'newsletter')?></a></li>
+                    <li><a href="#tabs-4"><?php _e('System', 'newsletter')?></a></li>
+                    <li><a href="#tabs-upgrade"><?php _e('Maintenance', 'newsletter')?></a></li>
                     <?php if (isset($_GET['debug'])) { ?>
                         <li><a href="#tabs-debug">Debug Data</a></li>
                     <?php } ?>
@@ -277,35 +277,8 @@ if (count($calls) > 1) {
 
                 <!-- SEMAPHORES -->
                 <div id="tabs-2">
-                    <h4>Semaphores</h4>
-                    <table class="widefat">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Active since</th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            <tr>
-                                <td>
-                                    Newsletter delivery
-                                </td>
-                                <td>
-                                    <?php
-                                    $value = get_transient('newsletter_main_engine');
-                                    if ($value)
-                                        echo (time() - $value) . ' seconds';
-                                    else
-                                        echo 'Not set';
-                                    ?>
-                                    <?php $controls->button('delete_transient', 'Delete', null, 'newsletter_main_engine'); ?>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <h4>Crons</h4>
+                    <h3>Crons</h3>
                     <table class="widefat">
                         <thead>
                             <tr>
@@ -315,6 +288,29 @@ if (count($calls) > 1) {
                         </thead>
 
                         <tbody>
+                            <tr>
+                                <td>Scheduler execution interval mean</td>
+                                <td>
+                                    <?php
+                                    if (count($calls) > 10) {
+                                        echo (int) $mean . ' seconds';
+                                        if ($mean < NEWSLETTER_CRON_INTERVAL * 1.2) {
+                                            echo ' (<span style="color: green; font-weight: bold">OK</span>)';
+                                        } else {
+                                            echo ' (<span style="color: red; font-weight: bold">KO</span>)';
+                                        }
+                                    } else {
+                                        echo 'Still not enough data. It requires few hours to collect a relevant data set.';
+                                    }
+                                    ?>
+
+                                    <p class="description">
+                                        Should be less than <?php echo NEWSLETTER_CRON_INTERVAL; ?> seconds.
+                                        <a href="http://www.thenewsletterplugin.com/plugins/newsletter/newsletter-delivery-engine" target="_blank">Read more</a>.
+                                    </p>
+
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     WordPress Cron System
@@ -374,30 +370,35 @@ if (count($calls) > 1) {
                                     <p class="description">Samples are collected in a maximum number of <?php echo Newsletter::MAX_CRON_SAMPLES; ?></p>
                                 </td>
                             </tr>
+
+                        </tbody>
+                    </table>
+                    
+                    <h3>Semaphores</h3>
+                    <table class="widefat">
+                        <thead>
                             <tr>
-                                <td>Scheduler execution interval mean</td>
+                                <th>Name</th>
+                                <th>Active since</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Newsletter delivery
+                                </td>
                                 <td>
                                     <?php
-                                    if (count($calls) > 10) {
-                                        echo (int) $mean . ' seconds';
-                                        if ($mean < NEWSLETTER_CRON_INTERVAL * 1.2) {
-                                            echo ' (<span style="color: green; font-weight: bold">OK</span>)';
-                                        } else {
-                                            echo ' (<span style="color: red; font-weight: bold">KO</span>)';
-                                        }
-                                    } else {
-                                        echo 'Still not enough data. It requires few hours to collect a relevant data set.';
-                                    }
+                                    $value = get_transient('newsletter_main_engine');
+                                    if ($value)
+                                        echo (time() - $value) . ' seconds';
+                                    else
+                                        echo 'Not set';
                                     ?>
-
-                                    <p class="description">
-                                        Should be less than <?php echo NEWSLETTER_CRON_INTERVAL; ?> seconds.
-                                        <a href="http://www.thenewsletterplugin.com/plugins/newsletter/newsletter-delivery-engine" target="_blank">Read more</a>.
-                                    </p>
-
+                                    <?php $controls->button('delete_transient', 'Delete', null, 'newsletter_main_engine'); ?>
                                 </td>
                             </tr>
-
                         </tbody>
                     </table>
                 </div>

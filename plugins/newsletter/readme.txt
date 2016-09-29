@@ -1,8 +1,8 @@
 === Newsletter ===
 Tags: newsletter,email,subscription,mass mail,list build,email marketing,direct mailing,automation,automated
 Requires at least: 3.4.0
-Tested up to: 4.5.3
-Stable tag: 4.5.9
+Tested up to: 4.6.0
+Stable tag: 4.6.0
 Contributors: satollo,webagile,michael-travan
 
 Add a real newsletter system to your blog. For free. With unlimited newsletters and subscribers.
@@ -76,6 +76,13 @@ Thank you, The Newsletter Team
 3. The Reports extension
 
 == Changelog ==
+
+= 4.6.0 =
+
+* Fixed debug notices on composer post blocks
+* Improved image styles on composer hero block
+* Added support for WP_Error in the logger
+* Improved the license checking
 
 = 4.5.9 =
 

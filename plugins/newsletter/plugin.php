@@ -4,7 +4,7 @@
   Plugin Name: Newsletter
   Plugin URI: http://www.thenewsletterplugin.com/plugins/newsletter
   Description: Newsletter is a cool plugin to create your own subscriber list, to send newsletters, to build your business. <strong>Before update give a look to <a href="http://www.thenewsletterplugin.com/category/release">this page</a> to know what's changed.</strong>
-  Version: 4.5.9
+  Version: 4.6.0
   Author: Stefano Lissa & The Newsletter Team
   Author URI: http://www.thenewsletterplugin.com
   Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
@@ -14,7 +14,7 @@
  */
 
 // Used as dummy parameter on css and js links
-define('NEWSLETTER_VERSION', '4.5.9');
+define('NEWSLETTER_VERSION', '4.6.0');
 
 global $wpdb, $newsletter;
 
@@ -150,14 +150,29 @@ class Newsletter extends NewsletterModule {
 
         if (defined('DOING_CRON') && DOING_CRON) {
             $calls = get_option('newsletter_diagnostic_cron_calls', array());
-            if (empty($calls)) {
-                add_option('newsletter_diagnostic_cron_calls', $calls, null, 'no');
-            }
             $calls[] = time();
             if (count($calls) > self::MAX_CRON_SAMPLES) {
                 array_shift($calls);
             }
-            update_option('newsletter_diagnostic_cron_calls', $calls);
+            update_option('newsletter_diagnostic_cron_calls', $calls, false);
+
+            if (count($calls) > 50) {
+                $mean = 0;
+                $max = 0;
+                $min = 0;
+                for ($i = 1; $i < count($calls); $i++) {
+                    $diff = $calls[$i] - $calls[$i - 1];
+                    $mean += $diff;
+                    if ($min == 0 || $min > $diff) {
+                        $min = $diff;
+                    }
+                    if ($max < $diff) {
+                        $max = $diff;
+                    }
+                }
+                $mean = $mean / count($calls) - 1;
+                update_option('newsletter_diagnostic_cron_data', array('mean'=>$mean, 'max'=>$max, 'min'=>$min), false);
+            }
             return;
         }
 
@@ -365,6 +380,11 @@ class Newsletter extends NewsletterModule {
             $warnings .= 'The delivery engine is off (it should never be off). Deactivate and reactivate the plugin. Thank you.<br>';
         } else if (time() - $x > 900) {
             $warnings .= 'The cron system seems not running correctly. See <a href="http://www.thenewsletterplugin.com/how-to-make-the-wordpress-cron-work" target="_blank">this page</a> for more information.<br>';
+        } else {
+            $cron_data = get_option('newsletter_diagnostic_cron_data');
+            if ($cron_data && $cron_data['mean'] > 400) {
+                $warnings .= 'The WordPress internal schedule is not triggered enough often. See <a href="http://www.thenewsletterplugin.com/how-to-make-the-wordpress-cron-work" target="_blank">this page</a> for more information.<br>';
+            }
         }
 
         if (!empty($warnings)) {
@@ -608,6 +628,8 @@ class Newsletter extends NewsletterModule {
                 @set_time_limit((int) $this->options['php_time_limit']);
             } else if (defined('NEWSLETTER_MAX_EXECUTION_TIME')) {
                 @set_time_limit(NEWSLETTER_MAX_EXECUTION_TIME);
+            } else {
+                @set_time_limit(NEWSLETTER_CRON_INTERVAL);
             }
 
             $max_time = (int) (@ini_get('max_execution_time') * 0.95);
@@ -1076,7 +1098,7 @@ class Newsletter extends NewsletterModule {
             $nk = $user->id . '-' . $user->token;
 
             $options_subscription = NewsletterSubscription::instance()->options;
-            
+
             if ($email) {
                 $text = str_replace('{email_id}', $email->id, $text);
                 $text = str_replace('{email_subject}', $email->subject, $text);

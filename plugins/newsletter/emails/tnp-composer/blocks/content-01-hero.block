@@ -10,7 +10,7 @@
                             <tr>
                                 <td class="padding-copy tnpc-row-edit" data-type="image">
                                     <a href="#" target="_blank">
-                                        <img src="https://unsplash.it/500/300?image=885" width="500" height="400" border="0" alt="Insert alt text here" style="display: block; color: #666666;  font-family: Helvetica, arial, sans-serif; font-size: 16px;" class="img-max">
+                                        <img src="https://unsplash.it/500/300?image=885" width="500" border="0" alt="Insert alt text here" style="max-width: 100%!important; width: 500px!important; height: auto!important; display: block; color: #666666;  font-family: Helvetica, arial, sans-serif; font-size: 16px;" class="img-max">
                                     </a>
                                 </td>
                             </tr>

@@ -49,8 +49,12 @@ class NewsletterLogger {
             case self::DEBUG: $time .= '- DEBUG';
                 break;
         }
-        if (is_array($text) || is_object($text)) $text = print_r($text, true);
-
+        if (is_wp_error($text)) {
+            /* @var $text WP_Error */
+            $text = $text->get_error_message() . ' (' . $text->get_error_code() . ')';
+        } else {
+            if (is_array($text) || is_object($text)) $text = print_r($text, true);
+        }
         // The "logs" dir is created on Newsletter constructor.
         $current_user_id = 0;
         if (function_exists('get_current_user_id')) $current_user_id = get_current_user_id();

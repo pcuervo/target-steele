@@ -2,6 +2,7 @@
 
 function tnp_post_thumbnail_src($post, $size = 'thumbnail') {
     $media = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), $size);
+    if (strpos($media[0], 'http') !== 0) $media[0] = 'http:' . $media[0];
     return $media[0];
 }
 

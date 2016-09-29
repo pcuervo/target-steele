@@ -2,7 +2,7 @@
 include NEWSLETTER_INCLUDES_DIR . '/helper.php';
 
 $filters = array();
-$filters['showposts'] = $_POST['num'] ? intval($_POST['num']) : 3;
+$filters['showposts'] = isset($_POST['num']) ? intval($_POST['num']) : 3;
 if (!empty($_POST['categories'])) {
     $filters['category__in'] = $_POST['categories'];
 }

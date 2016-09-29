@@ -2,7 +2,7 @@
 include NEWSLETTER_INCLUDES_DIR . '/helper.php';
 
 $filters = array();
-$filters['showposts'] = $_POST['num'] ? intval($_POST['num']) : 3;
+$filters['showposts'] = isset($_POST['num']) ? intval($_POST['num']) : 3;
 if (!empty($_POST['categories'])) {
     $filters['category__in'] = $_POST['categories'];
 }
@@ -27,7 +27,7 @@ $posts = get_posts($filters);
                     <tr>
                         <td valign="top" style="padding: 40px 0 0 0;" class="mobile-hide tnpc-row-edit" data-type="image">
                             <a href="<?php echo tnp_post_permalink($post) ?>" target="_blank">
-                                <img src="<?php echo tnp_post_thumbnail_src($post) ?>" width="105" height="105" border="0" style="display: block; font-family: Arial; color: #666666; font-size: 14px; width: 105px; height: 105px;">
+                                <img src="<?php echo tnp_post_thumbnail_src($post) ?>" width="105" height="105" border="0" style="display: block; font-family: Arial; color: #666666; font-size: 14px; width: 105px!important; height: 105px!important;">
                             </a>
                         </td>
                         <td style="padding: 40px 0 0 0;" class="no-padding">

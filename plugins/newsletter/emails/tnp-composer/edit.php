@@ -40,6 +40,8 @@
             // We set multiple to false so only get one image from the uploader
             attachment = file_frame.state().get('selection').first().toJSON();
             // Do something with attachment.id and/or attachment.url here
+            // Patch for plugins which remove the protocol (not good for a newsletter...)
+            if (attachment.url.indexOf("http") !== 0) attachment.url = "http:" + attachment.url;
             jQuery('#tnpc-edit-image .image').val(attachment.url);
         });
         // Finally, open the modal
