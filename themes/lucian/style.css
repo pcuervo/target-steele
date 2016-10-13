@@ -234,6 +234,8 @@ footer.entry-meta { display: none!important; }
 .sub-menu.submenu-languages:hover { background-color: #3988bc!important; }
 .sub-menu.submenu-languages a { color: #fff!important; }
 
+#zo-header-navigation .main-navigation .menu-main-menu .menu-item-language-current { display: none!important; }
+
 /*Single blog*/
 .social-share, .zo-blog-meta,
 .single .container #primary.col-xs-12.col-sm-3.col-md-3.col-lg-3 { display: none!important; }
